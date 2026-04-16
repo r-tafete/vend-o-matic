@@ -1,1 +1,3 @@
-# vend-o-matic
+# Vend-O-Matic
+
+Your online beverage vending machine!
