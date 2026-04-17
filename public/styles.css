@@ -1,0 +1,202 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 860px;
+  padding: 40px 24px;
+}
+
+.header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #1a1a1a;
+}
+
+.panels {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+}
+
+.panel {
+  background-color: #ffffff;
+  border: 2px solid #1a1a1a;
+  border-radius: 8px;
+  padding: 32px;
+}
+
+#inventory-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  min-height: 320px;
+}
+
+.inventory-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 16px;
+}
+
+.inventory-row:last-child {
+  border-bottom: none;
+}
+
+.inventory-row.sold-out {
+  color: #aaaaaa;
+}
+
+.item-name {
+  font-weight: 600;
+}
+
+.item-qty {
+  font-size: 14px;
+  color: #555555;
+}
+
+.inventory-row.sold-out .item-qty {
+  color: #aaaaaa;
+}
+
+#controls-panel {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.coin-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  padding: 16px;
+}
+
+.coin-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.coin-label {
+  font-size: 14px;
+  color: #555555;
+}
+
+.coin-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.drink-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.drink-section.hidden {
+  display: none;
+}
+
+.select-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #555555;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+#drink-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.btn {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, opacity 0.15s ease;
+  width: 100%;
+  text-align: center;
+}
+
+.btn-insert {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+.btn-insert:hover {
+  background-color: #333333;
+}
+
+.btn-drink {
+  background-color: #2563eb;
+  color: #ffffff;
+}
+
+.btn-drink:hover:not(:disabled) {
+  background-color: #1d4ed8;
+}
+
+.btn-drink.sold-out {
+  background-color: #d1d5db;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.btn-cancel {
+  background-color: #dc2626;
+  color: #ffffff;
+  margin-top: auto;
+}
+
+.btn-cancel:hover {
+  background-color: #b91c1c;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.refund-banner {
+  background-color: #dceefc;
+  color: #163765;
+  border: 1px solid #86b5ef;
+  border-radius: 6px;
+  padding: 12px 20px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 15px;
+  width: 100%;
+  max-width: 860px;
+}
+
+.refund-banner.hidden {
+  display: none;
+}

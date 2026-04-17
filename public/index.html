@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vend-O-Matic</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="header">
+        <h1>Vend-O-Matic</h1>
+      </header>
+
+      <div class="panels">
+        <div class="panel" id="inventory-panel">
+          <div class="inventory-row" id="row-0">
+            <span class="item-name">Water</span>
+            <span class="item-qty" id="qty-0"></span>
+          </div>
+          <div class="inventory-row" id="row-1">
+            <span class="item-name">Coke</span>
+            <span class="item-qty" id="qty-1"></span>
+          </div>
+          <div class="inventory-row" id="row-2">
+            <span class="item-name">Sprite</span>
+            <span class="item-qty" id="qty-2"></span>
+          </div>
+        </div>
+
+        <div class="panel" id="controls-panel">
+          <div class="coin-info">
+            <div class="coin-row">
+              <span class="coin-label">Quarters inserted</span>
+              <span class="coin-value" id="coin-count">0</span>
+            </div>
+            <div class="coin-row">
+              <span class="coin-label">Quarters needed</span>
+              <span class="coin-value" id="quarters-needed">2</span>
+            </div>
+          </div>
+
+          <button class="btn btn-insert" onclick="insertCoin()">
+            Insert Quarter
+          </button>
+
+          <div id="drink-section" class="drink-section hidden">
+            <p class="select-label">Select a drink:</p>
+            <div id="drink-buttons">
+              <button class="btn btn-drink" id="btn-0" onclick="buyItem(0)">
+                Water
+              </button>
+              <button class="btn btn-drink" id="btn-1" onclick="buyItem(1)">
+                Coke
+              </button>
+              <button class="btn btn-drink" id="btn-2" onclick="buyItem(2)">
+                Sprite
+              </button>
+            </div>
+          </div>
+
+          <button class="btn btn-cancel" onclick="cancelTransaction()">
+            Cancel + Return Coins
+          </button>
+        </div>
+      </div>
+      
+          <div id="refund-banner" class="refund-banner hidden">
+            <span id="refund-message"></span>
+          </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
