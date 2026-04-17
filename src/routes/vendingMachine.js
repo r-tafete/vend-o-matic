@@ -38,7 +38,40 @@ router.get('/inventory/:id', (req, res) => {
 });
 
 // PUT /inventory/:id (Purchase specified item :id from machine)
+router.put('/inventory/:id', (req, res) => {
+    const bevId = parseInt(req.params.id);
 
+    // case: invalid beverage id provided
+    if (Number.isNaN(bevId) || bevId < 0 || bevId >= NUM_BEVS_STOCKED) {
+        console.warn(`PUT /inventory/${req.params.id}: invalid item id`);
+        return res.status(404).json({ error: `Item (ID: ${req.params.id}) not found.` });
+    }
+
+    // case: insufficient funds
+    if (quarters < 2) {
+        console.warn(`PUT /inventory/${req.params.id}: insufficient funds. Current number of quarters: ${quarters}`);
+        res.set('X-Coins', String(quarters)).status(403);
+        return res.send();
+    }
+
+    // case: beverage out of stock
+    if (inventory[bevId] < 1) {
+        console.warn(`PUT /inventory/${req.params.id}: beverage (ID ${bevId}) is out of stock. Please select another beverage`);
+        res.set('X-Coins', String(quarters)).status(404);
+        return res.send();
+    }
+
+    // case: success
+    const change = quarters - 2;
+    quarters = 0;
+    inventory[bevId] -= 1;
+
+    res.set('X-Coins', String(change));
+    res.set('X-Inventory-Remaining', inventory[bevId]);
+    return res.status(200).json({
+        "quantity": 1
+    });
+});
 
 
 module.exports = router;
