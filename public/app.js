@@ -4,16 +4,16 @@ const beverages = [
     { id: 2, name: 'Sprite' },
 ];
 
-let coins = 0;
+let quarters = 0;
 let inventory = [0, 0, 0];
 
 async function init() {
     const res = await fetch('/inventory');
     inventory = await res.json();
-    renderInventory();
+    refreshInventory();
 }
 
-function renderInventory() {
+function refreshInventory() {
     beverages.forEach(({ id }) => {
         const qty = inventory[id];
         document.getElementById(`qty-${id}`).textContent = qty > 0 ? `${qty}` : 'Sold out';
@@ -22,13 +22,13 @@ function renderInventory() {
         document.getElementById(`btn-${id}`).classList.toggle('sold-out', qty == 0);
     });
 
-    document.getElementById('drink-section').classList.toggle('hidden', coins < 2);
+    document.getElementById('drink-section').classList.toggle('hidden', quarters < 2);
 }
 
 function updateCoinDisplay() {
-    document.getElementById('coin-count').textContent = coins;
-    document.getElementById('quarters-needed').textContent = Math.max(0, 2 - coins);
-    document.getElementById('drink-section').classList.toggle('hidden', coins < 2);
+    document.getElementById('coin-count').textContent = quarters;
+    document.getElementById('quarters-needed').textContent = Math.max(0, 2 - quarters);
+    document.getElementById('drink-section').classList.toggle('hidden', quarters < 2);
 }
 
 async function insertCoin() {
@@ -37,14 +37,14 @@ async function insertCoin() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ coin: 1 })
     });
-    coins = parseInt(res.headers.get('X-Coins'), 10);
+    quarters = parseInt(res.headers.get('X-Coins'), 10);
     updateCoinDisplay();
 }
 
 async function cancelTransaction() {
     const res = await fetch('/', { method: 'DELETE' });
     const refund = parseInt(res.headers.get('X-Coins'));
-    coins = 0;
+    quarters = 0;
     updateCoinDisplay();
 
     if (refund > 0) {
@@ -59,10 +59,10 @@ async function buyItem(id) {
     if (res.status == 200) {
         const change = parseInt(res.headers.get('X-Coins'));
         const remaining = parseInt(res.headers.get('X-Inventory-Remaining'));
-        coins = 0;
+        quarters = 0;
         inventory[id] = remaining;
         updateCoinDisplay();
-        renderInventory();
+        refreshInventory();
 
         document.getElementById('refund-message').textContent = `Purchase successful! ${change} quarter${change !== 1 ? 's' : ''} refunded.`;
         document.getElementById('refund-banner').classList.remove('hidden');
@@ -77,7 +77,7 @@ async function buyItem(id) {
     if (res.status == 404) {
         const inventoryRes = await fetch('/inventory');
         inventory = await inventoryRes.json();
-        renderInventory();
+        refreshInventory();
     }
 }
 
